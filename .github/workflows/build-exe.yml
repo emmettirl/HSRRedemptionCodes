@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pyinstaller beautifulsoup4 selenium requests logging re time datetime random os-python-env sys zipfile abc
+        pip install pyinstaller beautifulsoup4 selenium requests python-dotenv
 
     - name: Build EXE
       run: |

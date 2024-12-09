@@ -1,5 +1,5 @@
 import logging
-from env_config import EnvConfig
+from configuration.env_config import EnvConfig
 from WebScraping.harvester import Harvester  # Import the Harvester
 from CodeRedemption.code_redeemer import CodeRedeemer  # Import the CodeRedeemer
 from CodeRedemption.redemption_handler import RedemptionHandler  # Import the RedemptionHandler

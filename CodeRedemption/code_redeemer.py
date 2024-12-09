@@ -3,8 +3,11 @@ import os
 import requests
 import logging
 import re
-from datetime import datetime, time
+from datetime import datetime
+import time
 
+# Constants
+URL = "https://public-operation-hkrpg.hoyoverse.com/common/apicdkey/api/webExchangeCdkeyRisk"
 
 class CodeRedeemer:
     def __init__(self, headers, cookies, redeemed_codes_dir='redeemed_codes'):

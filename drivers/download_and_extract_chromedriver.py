@@ -15,7 +15,7 @@ def download_and_extract_chromedriver(extract_to='drivers'):
     for root, dirs, files in os.walk(extract_to):
         if 'chromedriver.exe' in files:
             driver_path = os.path.join(root, 'chromedriver.exe')
-            print(f"ChromeDriver already exists at {driver_path}")
+            print(f"ChromeDriver already exists at {driver_path}\n")
             return driver_path
 
     # Download the zip file
@@ -36,7 +36,7 @@ def download_and_extract_chromedriver(extract_to='drivers'):
     for root, dirs, files in os.walk(extract_to):
         if 'chromedriver.exe' in files:
             driver_path = os.path.join(root, 'chromedriver.exe')
-            print(f"ChromeDriver downloaded and extracted to {driver_path}")
+            print(f"ChromeDriver downloaded and extracted to {driver_path}\n")
             return driver_path
 
     raise FileNotFoundError("chromedriver.exe not found in the extracted zip file")
@@ -44,6 +44,3 @@ def download_and_extract_chromedriver(extract_to='drivers'):
 if __name__ == "__main__":
     # Download and extract the ChromeDriver
     driver_path = download_and_extract_chromedriver()
-
-    # Update the path in your scraper
-    print(f"Update your driver path to: {driver_path}")

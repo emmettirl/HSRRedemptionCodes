@@ -22,6 +22,10 @@ class EnvConfig:
         self.ltuid_v2 = os.getenv("LTUID_V2")
         self.e_bh3_token = os.getenv("E_BH3_TOKEN")
         self.doorman_event_hkrpg_pro_bot_discord_token = os.getenv("DOORMAN_EVENT_HKRPG_PRO_BOT_DISCORD_TOKEN")
+        self.doorman_event_hkrpg_pro_bot_discord_openid = os.getenv("DOORMAN_EVENT_HKRPG_PRO_BOT_DISCORD_OPENID")
+        self.uid = os.getenv("UID")
+        self.region = os.getenv("REGION")
+        self.platform = os.getenv("PLATFORM")
 
         self.HEADERS = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
@@ -50,6 +54,7 @@ class EnvConfig:
             "ltuid_v2": self.ltuid_v2,
             "e_bh3_token": self.e_bh3_token,
             "doorman_event_hkrpg_pro_bot_discord_token": self.doorman_event_hkrpg_pro_bot_discord_token,
+            "doorman_event_hkrpg_pro_bot_discord_openid": self.doorman_event_hkrpg_pro_bot_discord_openid
         }
 
         self.validate_env_variables()
@@ -71,13 +76,19 @@ class EnvConfig:
                 file.write("LTUID_V2=\n")
                 file.write("E_BH3_TOKEN=\n")
                 file.write("DOORMAN_EVENT_HKRPG_PRO_BOT_DISCORD_TOKEN=\n")
+                file.write("DOORMAN_EVENT_HKRPG_PRO_BOT_DISCORD_OPENID=\n")
+                file.write("UID=\n")
+                file.write("REGION=\n")
+                file.write("PLATFORM=\n")
+
 
     def validate_env_variables(self):
         required_vars = [
             "MI18N_LANG", "DEVICEFP", "HYVUUID", "MHYUUID", "DEVICEFP_SEED_ID",
             "DEVICEFP_SEED_TIME", "COOKIE_TOKEN_V2", "ACCOUNT_MID_V2", "ACCOUNT_ID_V2",
             "LTOKEN_V2", "LTMID_V2", "LTUID_V2", "E_BH3_TOKEN",
-            "DOORMAN_EVENT_HKRPG_PRO_BOT_DISCORD_TOKEN"
+            "DOORMAN_EVENT_HKRPG_PRO_BOT_DISCORD_TOKEN", "DOORMAN_EVENT_HKRPG_PRO_BOT_DISCORD_OPENID",
+            "UID", "REGION", "PLATFORM"
         ]
         missing_vars = [var for var in required_vars if not os.getenv(var)]
         if missing_vars:

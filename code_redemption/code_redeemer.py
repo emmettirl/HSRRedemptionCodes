@@ -10,11 +10,15 @@ import time
 URL = "https://public-operation-hkrpg.hoyoverse.com/common/apicdkey/api/webExchangeCdkeyRisk"
 
 class CodeRedeemer:
-    def __init__(self, headers, cookies, redeemed_codes_dir='redeemed_codes'):
+    def __init__(self, headers, cookies, redeemed_codes_dir='code_redemption/redeemed_codes'):
         self.headers = headers
         self.cookies = cookies
         self.redeemed_codes_dir = redeemed_codes_dir
         os.makedirs(self.redeemed_codes_dir, exist_ok=True)
+        self.uid = os.getenv("UID")
+        self.region = os.getenv("REGION")
+        self.platform = os.getenv("PLATFORM")
+
 
     def is_expired(self, expiry_date):
         if expiry_date is None:
@@ -26,10 +30,10 @@ class CodeRedeemer:
             "t": int(time.time() * 1000),  # Current timestamp
             "lang": "en",
             "game_biz": "hkrpg_global",
-            "uid": "703387880",
-            "region": "prod_official_eur",
+            "uid": self.uid,
+            "region": self.region,
             "cdkey": code["code"],
-            "platform": "4",
+            "platform": self.platform,
             "device_uuid": os.getenv("MHYUUID")
         }
         try:

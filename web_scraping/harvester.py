@@ -1,5 +1,5 @@
 # harvester.py
-from WebScraping.rockpapershotgun_scraper import RockPaperShotgunScraper
+from web_scraping.rockpapershotgun_scraper import RockPaperShotgunScraper
 
 class Harvester:
     def __init__(self):
@@ -12,4 +12,6 @@ class Harvester:
             codes = scraper.scrape()
             for code in codes:
                 unique_codes.add(code["code"])
+
+        print(f"Found {len(unique_codes)} unique codes\n")
         return list(unique_codes)

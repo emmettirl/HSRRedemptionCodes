@@ -1,15 +1,19 @@
+# rockpapershotgun_scraper.py
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
+from WebScraping.scraper_interface import ScraperInterface
+from drivers.download_and_extract_chromedriver import download_and_extract_chromedriver
+
 
 import time
 
-class CodeScraper:
-    def __init__(self, url):
-        self.url = url
-        self.driver_path = 'C:/Users/emmet/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe'  # Update this path to your WebDriver
+class RockPaperShotgunScraper(ScraperInterface):
+    def __init__(self):
+        self.url = "https://www.rockpapershotgun.com/honkai-star-rail-codes-list"
+        self.driver_path = download_and_extract_chromedriver()
 
     def fetch_page(self):
         options = Options()
@@ -26,7 +30,6 @@ class CodeScraper:
         soup = BeautifulSoup(html_content, "html.parser")
         codes = []
         rows = soup.find_all("tr", {"data-index": True})
-        print(f"Found {len(rows)} rows with data-index attribute")  # Debugging statement
         for row in rows:
             code_tag = row.find("td").find("strong")
             if code_tag:
@@ -36,17 +39,9 @@ class CodeScraper:
                 codes.append({"code": code, "rewards": rewards_tag, "status": status_tag})
         return codes
 
-    def get_codes(self):
+    def scrape(self):
         html_content = self.fetch_page()
-        print(f"Fetched HTML content: {html_content[:500]}")  # Debugging statement
         return self.parse_codes(html_content)
 
-def main():
-    url = "https://www.rockpapershotgun.com/honkai-star-rail-codes-list"
-    scraper = CodeScraper(url)
-    codes = scraper.get_codes()
-    for code in codes:
-        print(code)
-
-if __name__ == "__main__":
-    main()
+    def to_string(self):
+        return "RockPaperShotgunScraper"

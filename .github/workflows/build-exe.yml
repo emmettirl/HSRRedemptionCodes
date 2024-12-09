@@ -28,7 +28,7 @@ jobs:
 
     - name: Build EXE
       run: |
-        pyinstaller --onefile --console code_redemption/code_redeemer.py
+        pyinstaller --onefile --console main.py
 
     - name: Upload EXE
       uses: actions/upload-artifact@v3

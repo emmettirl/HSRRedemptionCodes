@@ -9,6 +9,10 @@ jobs:
   build:
     runs-on: windows-latest
 
+    env:
+      MAJOR_VERSION: 0
+      MINOR_VERSION: 0
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -40,17 +44,19 @@ jobs:
     - name: Increment version tag
       id: increment_tag
       run: |
-        latest_tag=$(git describe --tags `git rev-list --tags --max-count=1` || echo "v0.0.0")
-        if [ "$latest_tag" = "v0.0.0" ]; then
-          new_tag="v0.0.0"
+        latest_tag=$(git describe --tags `git rev-list --tags --max-count=1` || echo "v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.0")
+        IFS='.' read -r -a parts <<< "${latest_tag#v}"
+        major=${parts[0]}
+        minor=${parts[1]}
+        patch=${parts[2]}
+
+        if [ "$major" -ne "${{ env.MAJOR_VERSION }}" ] || [ "$minor" -ne "${{ env.MINOR_VERSION }}" ]; then
+          new_tag="v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.0"
         else
-          IFS='.' read -r -a parts <<< "${latest_tag#v}"
-          major=${parts[0]}
-          minor=${parts[1]}
-          patch=${parts[2]}
           patch=$((patch + 1))
           new_tag="v$major.$minor.$patch"
         fi
+
         echo "new_tag=$new_tag" >> $GITHUB_ENV
       shell: bash
 
@@ -72,5 +78,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: dist/main.exe
-        asset_name: main.exe
+        asset_name: hsr_code_redeemer.exe
         asset_content_type: application/octet-stream

@@ -2,6 +2,7 @@
 import requests
 import logging
 
+from web_scraping.code_validator import CodeValidator
 from web_scraping.scraper_interface import ScraperInterface
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
@@ -17,8 +18,11 @@ class GithubScraper(ScraperInterface):
         response = requests.get(self.url)
         if response.status_code == 200:
             scraped_codes = response.text.splitlines()
+            valid_codes = set()
+            for code in scraped_codes:
+                valid_codes.update(CodeValidator.extract_and_validate(code))
             logger.info(f"Found {len(scraped_codes)} codes\n")
-            return scraped_codes
+            return valid_codes
         else:
             response.raise_for_status()
 

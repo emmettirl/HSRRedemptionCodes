@@ -2,12 +2,13 @@
 import logging
 
 from web_scraping.github_scraper import GithubScraper
+from web_scraping.hoyolab_scraper import HoyolabScraper
 from web_scraping.rockpapershotgun_scraper import RockPaperShotgunScraper
 from web_scraping.hsrwiki_scraper import HsrWikiScraper
 
 class Harvester:
     def __init__(self):
-        self.scrapers = [RockPaperShotgunScraper(), HsrWikiScraper(), GithubScraper()]
+        self.scrapers = [RockPaperShotgunScraper(), HsrWikiScraper(), GithubScraper(), HoyolabScraper()]
 
     def collect_codes(self):
         unique_codes = set()

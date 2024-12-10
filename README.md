@@ -93,7 +93,7 @@ If you want to fork this project to continue development, you will want to creat
 
 ---
 
-## Contributiion Guidelines
+## Contribution Guidelines
 
 I welcome contributions, but please note that this is a personal project and I may not have time to review or merge pull requests. If you would like to contribute, please follow these guidelines:
 
@@ -114,6 +114,7 @@ If you know of a source but do not want to implement it yourself, please open an
 
 ### Promo code sources
 
+- Hoyolab: https://www.hoyolab.com/topicDetail/298842
 - Rock Paper Shotgun: https://www.rockpapershotgun.com/honkai-star-rail-codes-list
 - HSR Wiki: https://honkai-star-rail.fandom.com/wiki/Redemption_Code
 - Hum Bao's GitHub Repository: https://github.com/Hum-Bao/honkai-star-rail-codes/
@@ -129,6 +130,5 @@ If you know of a source but do not want to implement it yourself, please open an
 - Add support for Mac and Linux
 - Add support for more sources
 - Automatic Cookie and Request scraping
-- Sanitize codes before redeeming
 
 (no timeline or promises)

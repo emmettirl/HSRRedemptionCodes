@@ -8,12 +8,6 @@ Note I have not designed this to be used by anyone other than myself. It is not 
 I have no idea if Hoyoverse will ban you for using this program. 
 Use at your own risk. 
 
-## Requirements
-- Python 3.13 (older versions may work, but I have not tested them)
-- Selenium
-- BeautifulSoup
-- Chrome WebDriver (downloaded automatically by the program)
-
 ## How to use
 1. Download the latest 
 [Release](https://github.com/emmettirl/HSRRedemptionCodes/releases) and run the executable.
@@ -41,8 +35,5 @@ Releases are generated on each push to main. There is no "stable".
 - Add support for Mac and Linux
 - Add support for more sources
 - Automatic Cookie and Request scraping
-- Scheduling / Github actions for automatic redemption
 
 (no timeline or promises)
-
-cache test

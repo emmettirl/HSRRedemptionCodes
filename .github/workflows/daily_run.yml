@@ -13,6 +13,22 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Cache redeemed codes
+      uses: actions/cache@v3
+      with:
+        path: code_redemption/redeemed_codes
+        key: ${{ runner.os }}-redeemed-codes-${{ hashFiles('code_redemption/redeemed_codes/**') }}
+        restore-keys: |
+          ${{ runner.os }}-redeemed-codes-
+
+    - name: Cache drivers
+      uses: actions/cache@v3
+      with:
+        path: drivers
+        key: ${{ runner.os }}-drivers-${{ hashFiles('drivers/**') }}
+        restore-keys: |
+          ${{ runner.os }}-drivers-
+
     - name: Download latest release
       shell: pwsh
       run: |

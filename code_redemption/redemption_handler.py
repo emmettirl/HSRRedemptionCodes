@@ -34,6 +34,6 @@ class RedemptionHandler:
 
             # Wait 1 minute plus a random amount of time before the next attempt, if there are more codes to process
             if index < len(new_codes) - 1:
-                sleep_time = 60 + random.uniform(5, 15)
+                sleep_time = 30 + random.uniform(5, 15)
                 logging.info(f"Waiting {sleep_time:.2f} seconds before the next attempt...")
                 time.sleep(sleep_time)

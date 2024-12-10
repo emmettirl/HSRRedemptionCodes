@@ -14,7 +14,7 @@ class RedemptionHandler:
 
         # separate new codes from already redeemed codes
         new_codes = list(set(unique_codes) - redeemed_codes)
-        print(f"Found {len(new_codes)} new codes to process:\n{new_codes}\n")
+        logging.info(f"Found {len(new_codes)} new codes to process:\n{new_codes}\n")
 
 
         for index, code in enumerate(new_codes):

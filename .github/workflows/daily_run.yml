@@ -1,0 +1,39 @@
+name: Run Latest Release
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs at midnight UTC every day
+  workflow_dispatch:
+
+jobs:
+  run-latest-release:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Download latest release
+      shell: pwsh
+      run: |
+        $url = (curl -s https://api.github.com/repos/emmettirl/HSRRedemptionCodes/releases/latest `
+        | grep 'browser_download_url.*hsr_code_redeemer.exe' `
+        | cut -d : -f 2,3 `
+        | tr -d '"').Trim()
+        Invoke-WebRequest -Uri $url -OutFile hsr_code_redeemer.exe
+
+    - name: Create .env file
+      run: |
+        echo "COOKIE_TOKEN_V2=${{ secrets.COOKIE_TOKEN_V2 }}" >> .env
+        echo "ACCOUNT_MID_V2=${{ secrets.ACCOUNT_MID_V2 }}" >> .env
+        echo "ACCOUNT_ID_V2=${{ secrets.ACCOUNT_ID_V2 }}" >> .env
+        echo "LTOKEN_V2=${{ secrets.LTOKEN_V2 }}" >> .env
+        echo "LTMID_V2=${{ secrets.LTMID_V2 }}" >> .env
+        echo "LTUID_V2=${{ secrets.LTUID_V2 }}" >> .env
+        echo "UID=${{ secrets.UID }}" >> .env
+        echo "REGION=${{ secrets.REGION }}" >> .env
+        echo "PLATFORM=${{ secrets.PLATFORM }}" >> .env
+
+    - name: Run latest release
+      run: |
+        ./hsr_code_redeemer.exe

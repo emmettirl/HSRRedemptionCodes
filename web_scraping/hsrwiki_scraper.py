@@ -1,9 +1,14 @@
 # hsrwiki_scraper.py
 import requests
+import logging
+
 from bs4 import BeautifulSoup
 
 from web_scraping.scraper_interface import ScraperInterface
 
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(message)s')
+logger = logging.getLogger()
 
 class HsrWikiScraper(ScraperInterface):
     def __init__(self):
@@ -26,10 +31,10 @@ class HsrWikiScraper(ScraperInterface):
                 code = code_element.text.strip()
                 codes.append(code)
 
-        print(f"Found {len(codes)} codes\n")
+        logger.info(f"Found {len(codes)} codes\n")
         return codes
 
 if __name__ == "__main__":
     scraper = HsrWikiScraper()
     codes = scraper.scrape()
-    print(f"Fetched {len(codes)} codes:\n{codes}")
+    logger.info(f"Fetched {len(codes)} codes:\n{codes}")

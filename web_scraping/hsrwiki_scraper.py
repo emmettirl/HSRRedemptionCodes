@@ -4,6 +4,7 @@ import logging
 
 from bs4 import BeautifulSoup
 
+from web_scraping.code_validator import CodeValidator
 from web_scraping.scraper_interface import ScraperInterface
 
 # Configure logging
@@ -20,7 +21,7 @@ class HsrWikiScraper(ScraperInterface):
     def scrape(self):
         response = requests.get(self.url)
         soup = BeautifulSoup(response.content, 'html.parser')
-        codes = []
+        codes = set()
 
         # Find all table rows containing redemption codes
         rows = soup.select('table tbody tr')
@@ -28,8 +29,8 @@ class HsrWikiScraper(ScraperInterface):
             code_element = row.select_one('td code')
             validity_element = row.select_one('td:last-child')
             if code_element and validity_element and "expired" not in validity_element.text.lower():
-                code = code_element.text.strip()
-                codes.append(code)
+                text = code_element.text.strip()
+                codes.update(CodeValidator.extract_and_validate(text))
 
         logger.info(f"Found {len(codes)} codes\n")
         return codes

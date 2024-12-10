@@ -1,7 +1,12 @@
 # env_config.py
+import logging
 import os
 from dotenv import load_dotenv
 import sys
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(message)s')
+logger = logging.getLogger()
 
 class EnvConfig:
     def __init__(self):
@@ -67,6 +72,6 @@ class EnvConfig:
         ]
         missing_vars = [var for var in required_vars if not os.getenv(var)]
         if missing_vars:
-            print(f"Error: The following environment variables are missing in the .env file: {', '.join(missing_vars)}")
-            print("Please fill out the .env file with the required information and try again.")
+            logger.error(f"The following environment variables are missing in the .env file: {', '.join(missing_vars)}")
+            logger.error("Please fill out the .env file with the required information and try again.")
             sys.exit(1)

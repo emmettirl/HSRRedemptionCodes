@@ -6,8 +6,12 @@ from bs4 import BeautifulSoup
 from web_scraping.scraper_interface import ScraperInterface
 from drivers.download_and_extract_chromedriver import download_and_extract_chromedriver
 
-
+import logging
 import time
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(message)s')
+logger = logging.getLogger()
 
 class RockPaperShotgunScraper(ScraperInterface):
     def __init__(self):
@@ -34,7 +38,7 @@ class RockPaperShotgunScraper(ScraperInterface):
             if code_tag:
                 code = code_tag.text
                 codes.append(code)
-        print(f'Found {len(codes)} codes\n')
+        logger.info(f"Found {len(codes)} codes\n")
         return codes
 
     def scrape(self):

@@ -20,8 +20,8 @@ def main():
     code_redeemer = CodeRedeemer(HEADERS, COOKIES)
     redemption_handler = RedemptionHandler(harvester, code_redeemer)
     redemption_handler.process_codes()
+    return 0
 
 # Entry point
 if __name__ == "__main__":
     main()
-    input("Press Enter to exit...")

@@ -19,3 +19,8 @@ class Harvester:
 
         logging.info(f"Found {len(unique_codes)} unique codes across all scrapers.\n")
         return list(unique_codes)
+
+if __name__ == "__main__":
+    harvester = Harvester()
+    codes = harvester.collect_codes()
+    logging.info(f"Collected {len(codes)} unique codes:\n{codes}")

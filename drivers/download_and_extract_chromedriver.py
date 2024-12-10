@@ -1,11 +1,21 @@
 import os
+import subprocess
+
 import requests
 import zipfile
 
 url = "https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.87/win64/chromedriver-win64.zip"
 
+def get_project_root():
+    return subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True).stdout.strip()
+
+
 def download_and_extract_chromedriver(extract_to='drivers'):
     # Ensure the directory exists
+
+    project_root = get_project_root()
+    extract_to = os.path.join(project_root, 'drivers')
+
     os.makedirs(extract_to, exist_ok=True)
 
     # Define the path for the downloaded zip file

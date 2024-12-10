@@ -49,6 +49,7 @@ jobs:
         echo "UID=${{ secrets.UID }}" >> .env
         echo "REGION=${{ secrets.REGION }}" >> .env
         echo "PLATFORM=${{ secrets.PLATFORM }}" >> .env
+        echo "TWITTER_BEARER_TOKEN=${{ secrets.TWITTER_BEARER_TOKEN }}" >> .env
 
     - name: Run latest release
       run: |

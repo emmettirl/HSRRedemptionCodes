@@ -34,9 +34,7 @@ class RockPaperShotgunScraper(ScraperInterface):
             code_tag = row.find("td").find("strong")
             if code_tag:
                 code = code_tag.text
-                rewards_tag = row.find_all("td")[1].text.strip()
-                status_tag = row.find_all("td")[2].text.strip()
-                codes.append({"code": code, "rewards": rewards_tag, "status": status_tag})
+                codes.append(code)
         print(f'Found {len(codes)} codes\n')
         return codes
 

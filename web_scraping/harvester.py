@@ -1,14 +1,23 @@
 # harvester.py
 import logging
 
-from web_scraping.github_scraper import GithubScraper
-from web_scraping.hoyolab_scraper import HoyolabScraper
+from configuration.env_config import EnvConfig
 from web_scraping.rockpapershotgun_scraper import RockPaperShotgunScraper
 from web_scraping.hsrwiki_scraper import HsrWikiScraper
+from web_scraping.github_scraper import GithubScraper
+from web_scraping.hoyolab_scraper import HoyolabScraper
+from web_scraping.twitter_scraper import TwitterScraper
+
 
 class Harvester:
     def __init__(self):
         self.scrapers = [RockPaperShotgunScraper(), HsrWikiScraper(), GithubScraper(), HoyolabScraper()]
+        env = EnvConfig()
+
+        if env.twitter_bearer_token:
+            self.scrapers.append(TwitterScraper(env.twitter_bearer_token))
+        else:
+            logging.warning("\nTwitter credentials not found. Skipping Twitter scraping.\n")
 
     def collect_codes(self):
         unique_codes = set()

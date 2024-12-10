@@ -9,42 +9,52 @@ logging.basicConfig(level=logging.INFO, format='%(message)s')
 logger = logging.getLogger()
 
 class EnvConfig:
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(EnvConfig, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+
     def __init__(self):
-        self.env_file = '.env'
-        self.create_env_file_if_not_exists()
-        load_dotenv()
-        self.cookie_token_v2 = os.getenv("COOKIE_TOKEN_V2")
-        self.account_mid_v2 = os.getenv("ACCOUNT_MID_V2")
-        self.account_id_v2 = os.getenv("ACCOUNT_ID_V2")
-        self.ltoken_v2 = os.getenv("LTOKEN_V2")
-        self.ltmid_v2 = os.getenv("LTMID_V2")
-        self.ltuid_v2 = os.getenv("LTUID_V2")
-        self.uid = os.getenv("UID")
-        self.region = os.getenv("REGION")
-        self.platform = os.getenv("PLATFORM")
+        if not hasattr(self, '_initialized'):
 
-        self.HEADERS = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
-            "Accept": "*/*",
-            "Accept-Language": "en-US,en;q=0.5",
-            "Accept-Encoding": "gzip, deflate, br, zstd",
-            "Content-Type": "application/json;",
-            "Origin": "https://hsr.hoyoverse.com",
-            "DNT": "1",
-            "Connection": "keep-alive",
-            "Referer": "https://hsr.hoyoverse.com/"
-        }
+            self.env_file = '.env'
+            self.create_env_file_if_not_exists()
+            load_dotenv()
+            self.cookie_token_v2 = os.getenv("COOKIE_TOKEN_V2")
+            self.account_mid_v2 = os.getenv("ACCOUNT_MID_V2")
+            self.account_id_v2 = os.getenv("ACCOUNT_ID_V2")
+            self.ltoken_v2 = os.getenv("LTOKEN_V2")
+            self.ltmid_v2 = os.getenv("LTMID_V2")
+            self.ltuid_v2 = os.getenv("LTUID_V2")
+            self.uid = os.getenv("UID")
+            self.region = os.getenv("REGION")
+            self.platform = os.getenv("PLATFORM")
+            self.twitter_bearer_token = os.getenv("TWITTER_BEARER_TOKEN")
 
-        self.COOKIES = {
-            "cookie_token_v2": self.cookie_token_v2,
-            "account_mid_v2": self.account_mid_v2,
-            "account_id_v2": self.account_id_v2,
-            "ltoken_v2": self.ltoken_v2,
-            "ltmid_v2": self.ltmid_v2,
-            "ltuid_v2": self.ltuid_v2,
-}
+            self.HEADERS = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
+                "Accept": "*/*",
+                "Accept-Language": "en-US,en;q=0.5",
+                "Accept-Encoding": "gzip, deflate, br, zstd",
+                "Content-Type": "application/json;",
+                "Origin": "https://hsr.hoyoverse.com",
+                "DNT": "1",
+                "Connection": "keep-alive",
+                "Referer": "https://hsr.hoyoverse.com/"
+            }
 
-        self.validate_env_variables()
+            self.COOKIES = {
+                "cookie_token_v2": self.cookie_token_v2,
+                "account_mid_v2": self.account_mid_v2,
+                "account_id_v2": self.account_id_v2,
+                "ltoken_v2": self.ltoken_v2,
+                "ltmid_v2": self.ltmid_v2,
+                "ltuid_v2": self.ltuid_v2,
+            }
+
+            self.validate_env_variables()
 
     def create_env_file_if_not_exists(self):
         if not os.path.exists(self.env_file):
@@ -62,6 +72,9 @@ class EnvConfig:
                 file.write("UID=\n")
                 file.write("REGION=\n")
                 file.write("PLATFORM=\n")
+                file.write("\n")
+                file.write("# Twitter Fields\n")
+                file.write("TWITTER_BEARER_TOKEN=\n")
 
 
     def validate_env_variables(self):

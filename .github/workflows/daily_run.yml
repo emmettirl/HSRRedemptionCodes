@@ -17,7 +17,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: code_redemption/redeemed_codes
-        key: ${{ runner.os }}-redeemed-codes-${{ hashFiles('code_redemption/redeemed_codes/**') }}
+        key: ${{ runner.os }}-redeemed-codes-${{ github.run_id }}
         restore-keys: |
           ${{ runner.os }}-redeemed-codes-
 
